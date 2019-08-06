@@ -20,4 +20,7 @@ fs.readdir('./events/', (error, files) =>
 
 // START
 logger.info('starting discord client..');
-client.login(process.env.BOT_TOKEN).catch(e => errorCheck(e));
+client
+    .login(process.env.BOT_TOKEN)
+    .then(token => logger.info(`connected with token: ${token}`))
+    .catch(e => errorCheck(e));

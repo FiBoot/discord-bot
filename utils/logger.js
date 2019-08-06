@@ -16,7 +16,8 @@ const MESSAGE_TYPES = {
  */
 function log(type, message) {
     const date = new Date();
-    const datetime = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    const datetimeOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const datetime = `${date.toLocaleDateString('fr-Fr', datetimeOptions)} ${date.toLocaleTimeString()}`;
     console.log(`[${datetime.grey}][${type}]: ${message}`);
 }
 
