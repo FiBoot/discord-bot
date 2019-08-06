@@ -1,3 +1,5 @@
+const { logger } = require('../utils');
+
 module.exports = client => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    logger.debug(`Logged in as ${client.user.tag}`);
 };

@@ -8,6 +8,12 @@ const MESSAGE_TYPES = {
     DEBUG: 'DEBUG'.grey
 };
 
+/**
+ * Log with datetime and given type
+ *
+ * @param {MESSAGE_TYPES} type
+ * @param {string} message
+ */
 function log(type, message) {
     const date = new Date();
     const datetime = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
