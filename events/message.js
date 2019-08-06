@@ -5,4 +5,7 @@ module.exports = (client, message) => {
     if (message.content === '>ping') {
         message.reply('prout');
     }
+    if (message.content === '>uef') {
+        message.reply('https://giphy.com/explore/dog/')
+    }
 };
