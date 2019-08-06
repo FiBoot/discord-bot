@@ -1,8 +1,12 @@
 const { logger } = require('../utils');
 
 module.exports = (client, message) => {
+    console.log(message)
     logger.debug(`message receive: ${message}`);
     if (message.content === '>ping') {
         message.reply('prout');
+    }
+    if (message.content === '>uef') {
+        message.reply('https://giphy.com/explore/dog/')
     }
 };
