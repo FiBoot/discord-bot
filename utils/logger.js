@@ -1,6 +1,8 @@
 require('dotenv').config();
 require('colors');
 
+const { localeDate } = require('../utils');
+
 const MESSAGE_TYPES = {
     ERROR: 'ERROR'.red,
     INFO: 'INFO'.white,
@@ -15,10 +17,9 @@ const MESSAGE_TYPES = {
  * @param {string} message
  */
 function log(type, message) {
-    const date = new Date();
-    const datetimeOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const datetime = `${date.toLocaleDateString('fr-Fr', datetimeOptions)} ${date.toLocaleTimeString()}`;
+    const datetime = localeDate(new Date());
     console.log(`[${datetime.grey}][${type}]: ${message}`);
+    return `[${datetime.grey}][${type}]: ${message}`;
 }
 
 module.exports = {
