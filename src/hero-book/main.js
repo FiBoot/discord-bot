@@ -12,8 +12,8 @@ class HeroBook {
                 new Choice('Oui', 4),
                 new Choice('VADE RETRO GINGEROO', 5)
             ]),
-            new Page(3, "t'a cru qu'on servait les cucks ici ?", []),
-            new Page(4, "__Kappu__: tu veux qu' on baise?", []),
+            new Page(3, "t'as cru qu'on servait les cucks ici ?", []),
+            new Page(4, "__Kappu__: tu veux qu'on baise?", []),
             new Page(5, '__Kappu__: MOI CQUE JVEUX CEST FAIRE LAMOUR!', [])
         ];
         this.heroes = [];
