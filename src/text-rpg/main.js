@@ -2,7 +2,7 @@ const { logger, localeDate } = require('../../utils');
 const { Player } = require('./player');
 const map = require('./map');
 
-class Game {
+class TextRPG {
     constructor() {
         this.initialized = false;
         this.commands = {
@@ -56,7 +56,7 @@ class Game {
             return `player ${author.username} not found`;
         }
         this.players.splice(this.players.indexOf(player), 1);
-        return `cya ${author.username}`
+        return `cya ${author.username}`;
     }
 
     setPlayerJob(author, job) {
@@ -91,8 +91,11 @@ class Game {
 
     mapInfo(author) {
         // pos of player on map
-        return `__Map__:\n${this.map.map(l => `${l}\n`).join('').replace(/ /g, '   ')}`;
+        return `__Map__:\n${this.map
+            .map(l => `${l}\n`)
+            .join('')
+            .replace(/ /g, '   ')}`;
     }
 }
 
-module.exports = { Game };
+module.exports = TextRPG;
