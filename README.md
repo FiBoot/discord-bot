@@ -1,7 +1,9 @@
 # DISCROD BOT
 
 ## env
+
 You have to set up a ```.env``` file at the root of the project
+
 |Name     |Effect                                |Mandatory|
 |:-       |:-                                    |:-:      |
 |BOT_TOKEN|discord bot login key                 |YES      |
@@ -10,8 +12,10 @@ You have to set up a ```.env``` file at the root of the project
 |         |                                      |         |
 
 ## Git convention
+
 #### Commit message
 > :emoji: commit message [github issue #]
+
 #### Emoji list
 |Emoji             |Meaning           |
 |-:                |:-                |
