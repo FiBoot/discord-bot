@@ -9,7 +9,6 @@ You have to set up a ```.env``` file at the root of the project
 |BOT_TOKEN|discord bot login key                 |YES      |
 |PREFIX   |prefix of bot command (default is `>`)|NO       |
 |DEBUG    |to show debug logs                    |NO       |
-|         |                                      |         |
 
 ## Git convention
 
@@ -31,4 +30,3 @@ You have to set up a ```.env``` file at the root of the project
 |:bug:             |Bugfix            |
 |:lock:            |Security          |
 |:heavy_check_mark:|Tests             |
-|                  |                  |
