@@ -12,7 +12,7 @@ function cmd(expression, message) {
 }
 
 module.exports = (client, message) => {
-    // logger.debug(`message from ${message.author.username}: ${message.content}`);
+    logger.debug(`message from ${message.author.username}: ${message.content}`);
 
     // MESSAGE DONT START WITH BOT PREFIX COMMAND -> EXIT
     if (!cmd('', message.content)) {
