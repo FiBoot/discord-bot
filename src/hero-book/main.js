@@ -1,48 +1,56 @@
-const { logger } = require('../../utils');
+const fs = require('fs');
+const path = require('path');
+const { logger, errorCheck } = require('../../utils');
 const { Page, Choice, Hero } = require('.');
+
+const story = 'kappu.json';
 
 class HeroBook {
     constructor() {
-        this.pages = [
-            new Page(1, 'Tu rentres dans un bar', [
-                new Choice('Tu vas vers Kappu', 2),
-                new Choice('tu demandes du lait au barman', 3)
-            ]),
-            new Page(2, "__Kappu__: Salut t'as les seins chauds ?", [
-                new Choice('Oui', 4),
-                new Choice('VADE RETRO GINGERIDOO', 5)
-            ]),
-            new Page(3, "t'as cru qu'on servait les cucks ici ?", []),
-            new Page(4, "__Kappu__: tu veux qu'on baise?", []),
-            new Page(5, '__Kappu__: MOI CQUE JVEUX CEST FAIRE LAMOUR!', [])
-        ];
+        this.initialized = false;
         this.heroes = [];
-        logger.info('HeroBook instancied');
+        fs.readFile(path.join(__dirname, 'stories/', story), 'utf8', (error, data) =>
+            errorCheck(error, data).then(data => {
+                this.pages = this.generePages(JSON.parse(data));
+                this.initialized = true;
+                logger.info('HeroBook initalized');
+            })
+        );
+    }
+
+    generePages(story) {
+        return story.map(
+            ({ id, text, choices }) =>
+                new Page(id, text, choices ? choices.map(({ text, goto }) => new Choice(text, goto)) : [])
+        );
     }
 
     exec(author, choice) {
+        if (!this.initialized) {
+            return 'HeroBook not initalized';
+        }
         // RESET
         if (choice === '0') {
-            return this.addAuthor(author);
+            return this.addHero(author);
         }
         const hero = this.getHero(author);
-        return hero ? (choice ? this.choice(hero, choice) : this.status(hero)) : this.addAuthor(author);
+        return hero ? (choice ? this.choice(hero, choice) : this.status(hero)) : this.addHero(author);
     }
 
     getHero(author) {
         return this.heroes.find(h => h.id === author.id);
     }
 
-    removeAuthor(author) {
+    removeHero(author) {
         const hero = this.getHero(author);
         if (hero) {
             this.heroes.splice(this.heroes.indexOf(hero), 1);
         }
     }
 
-    addAuthor(author) {
+    addHero(author) {
         if (this.getHero(author)) {
-            this.removeAuthor(author);
+            this.removeHero(author);
         }
         const hero = new Hero(author);
         this.heroes.push(hero);
@@ -58,7 +66,7 @@ class HeroBook {
         if (choice > page.choices.length) {
             return `choice #${choice} does not exist`;
         }
-        hero.page = page.choices[choice - 1].next;
+        hero.page = page.choices[choice - 1].goto;
         return this.status(hero);
     }
 }

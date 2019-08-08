@@ -16,7 +16,7 @@ class TextRPG {
             job: this.setPlayerJob.bind(this),
             special: this.special.bind(this)
         };
-        logger.info('TextRPG instancied');
+        logger.info('TextRPG initalized');
     }
 
     initialization(author) {

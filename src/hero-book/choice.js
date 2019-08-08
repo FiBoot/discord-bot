@@ -1,10 +1,10 @@
 class Choice {
     /**
      * @param {string} text choice description
-     * @param {number} next page id to go to
+     * @param {number} goto page id to go to
      */
-    constructor(text, next) {
-        Object.assign(this, { text, next });
+    constructor(text, goto) {
+        Object.assign(this, { text, goto });
     }
 
     toString() {

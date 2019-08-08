@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "text": "Tu rentres dans un bar",
+        "choices": [
+            {
+                "text": "Tu vas vers Kappu",
+                "goto": 2
+            },
+            {
+                "text": "tu demandes du lait au barman",
+                "goto": 3
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "text": "__Kappu__: Salut t'as les seins chauds ?",
+        "choices": [
+            {
+                "text": "Oui",
+                "goto": 4
+            },
+            {
+                "text": "VADE RETRO GINGERIDOO",
+                "goto": 5
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "text": "t'as cru qu'on servait les cucks ici ?"
+    },
+    {
+        "id": 4,
+        "text": "__Kappu__: tu veux qu'on baise?"
+    },
+    {
+        "id": 5,
+        "text": "__Kappu__: MOI CQUE JVEUX CEST FAIRE LAMOUR!"
+    }
+]
