@@ -7,11 +7,9 @@ const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
 const textRPG = new Game();
 
 module.exports = (client, message) => {
-    logger.debug(`message from ${message.author.username}: ${message.content}`);
+    logger.info(`message from ${message.author.username}: ${message.content}`);
 
     if (
-        // MESSAGE IF FROM BOT -> EXIT
-        (process.env.BOT_NAME && message.author.username === process.env.BOT_NAME) ||
         // MESSAGE DONT START WITH BOT PREFIX COMMAND -> EXIT
         !regexp(`^${PREFIX}`, message.content)
     ) {
@@ -20,19 +18,19 @@ module.exports = (client, message) => {
 
     let result;
     // PING
-    if (regexp(`^\\${PREFIX} ping$`, message.content)) {
+    if (regexp(`^\\${PREFIX}ping$`, message.content)) {
         return message.reply('prout');
     }
     // GIPHY
     if ((result = regexp(`^\\${PREFIX}gif (.+)$`, message.content))) {
-        return message.reply(`https://giphy.com/explore/${result[0].replace(' ', '-')}`);
+        return message.reply(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
     }
     // KAPU
     if ((result = regexp(`^\\${PREFIX}ckikonbez$`, message.content))) {
         return message.reply(`les roux ne sont pas de vrais êtres humains`);
     }
     // TEXT RPG
-    if ((result = regexp(`^\\${PREFIX}test[ ]+([a-zA-Z0-9_]+)[ ]*([a-zA-Z0-9_]+)?`, message.content))) {
+    if ((result = regexp(`^\\${PREFIX}t[ ]+([a-zA-Z0-9_]+)[ ]*([a-zA-Z0-9_]+)?`, message.content))) {
         if (!textRPG.initialized) {
             textRPG.initialization(message.author);
         }
