@@ -6,14 +6,14 @@ class HeroBook {
         this.pages = [
             new Page(1, 'Tu rentres dans un bar', [
                 new Choice('Tu vas vers Kappu', 2),
-                new Choice('tu demande du lait au barman', 3)
+                new Choice('tu demandes du lait au barman', 3)
             ]),
-            new Page(2, "__Kappu__: Salut t'as les seins chaud?", [
+            new Page(2, "__Kappu__: Salut t'as les seins chauds ?", [
                 new Choice('Oui', 4),
-                new Choice('VADE RETRO GINGEROO', 5)
+                new Choice('VADE RETRO GINGERIDOO', 5)
             ]),
-            new Page(3, "t'a cru qu'on servait les cucks ici ?", []),
-            new Page(4, "__Kappu__: tu veux qu' on baise?", []),
+            new Page(3, "t'as cru qu'on servait les cucks ici ?", []),
+            new Page(4, "__Kappu__: tu veux qu'on baise?", []),
             new Page(5, '__Kappu__: MOI CQUE JVEUX CEST FAIRE LAMOUR!', [])
         ];
         this.heroes = [];
@@ -22,7 +22,6 @@ class HeroBook {
 
     exec(author, choice) {
         // RESET
-        console.log(choice);
         if (choice === '0') {
             return this.addAuthor(author);
         }
@@ -57,7 +56,7 @@ class HeroBook {
     choice(hero, choice) {
         const page = this.pages[hero.page - 1];
         if (choice > page.choices.length) {
-            return `chose between 1 and ${page.choices.length}`;
+            return `choice #${choice} does not exist`;
         }
         hero.page = page.choices[choice - 1].next;
         return this.status(hero);
