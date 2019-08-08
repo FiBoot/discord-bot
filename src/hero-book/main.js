@@ -22,7 +22,6 @@ class HeroBook {
 
     exec(author, choice) {
         // RESET
-        console.log(choice);
         if (choice === '0') {
             return this.addAuthor(author);
         }
