@@ -6,11 +6,11 @@ class HeroBook {
         this.pages = [
             new Page(1, 'Tu rentres dans un bar', [
                 new Choice('Tu vas vers Kappu', 2),
-                new Choice('tu demande du lait au barman', 3)
+                new Choice('tu demandes du lait au barman', 3)
             ]),
-            new Page(2, "__Kappu__: Salut t'as les seins chaud?", [
+            new Page(2, "__Kappu__: Salut t'as les seins chauds ?", [
                 new Choice('Oui', 4),
-                new Choice('VADE RETRO GINGEROO', 5)
+                new Choice('VADE RETRO GINGERIDOO', 5)
             ]),
             new Page(3, "t'as cru qu'on servait les cucks ici ?", []),
             new Page(4, "__Kappu__: tu veux qu'on baise?", []),
