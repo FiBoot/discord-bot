@@ -2,19 +2,19 @@
 
 ## env
 You have to set up a ```.env``` file at the root of the project
-|Name|Effect|Mandatory|
-|:---|:-----|:-------:|
-|BOT_TOKEN|discord bot login key|YES|
-|PREFIX|prefix of bot command (default is `>`)|NO|
-|DEBUG|to show debug logs|NO|
-|||
+|Name     |Effect                                |Mandatory|
+|:-       |:-                                    |:-:      |
+|BOT_TOKEN|discord bot login key                 |YES      |
+|PREFIX   |prefix of bot command (default is `>`)|NO       |
+|DEBUG    |to show debug logs                    |NO       |
+|         |                                      |         |
 
 ## Git convention
 #### Commit message
 > :emoji: commit message [github issue #]
 #### Emoji list
 |Emoji             |Meaning           |
-|:-----------------|:-----------------|
+|-:                |:-                |
 |:tada:            |Initalisation     |
 |:sparkles:        |New feature       |
 |:books:           |Documentation     |

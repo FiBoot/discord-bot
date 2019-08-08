@@ -1,31 +1,29 @@
-const { logger } = require('../../utils');
-
-const JOBS = {
-    WARRIOR: 'warrior',
-    RANGER: 'ranger',
-    PRIEST: 'priest',
-    MAGE: 'mage',
-    ROGUE: 'rogue'
-};
+const { jobFactory, JOBS } = require('./job-factory');
 
 class Player {
-    constructor({ id, username }) {
-        this.id = id;
-        this.name = username;
+    constructor(author) {
+        Object.assign(this, { id: author.id, name: author.username });
         this.job = null;
     }
 
     setJob(job) {
-        if (this.job) {
-            return false;
+        if (!JOBS.includes(job)) {
+            return `job '${job}' not found\npossible jobs: \n${JOBS.map(j => `- ${j}\n`).join('')}`;
         }
-        this.job = job;
-        return true
+        if (this.job) {
+            return `already ${this.job.name}`;
+        }
+        this.job = jobFactory(job);
+        return `player ${this.name} is now ${job}`;
+    }
+
+    special() {
+        return this.job ? this.job.special() : 'no special, set a job first';
     }
 
     toString() {
-        return `${this.name} (${this.id})\njob: ${this.job ? this.job : '/'}`;
+        return `__Sheet__:\n**name**: ${this.name}${this.job ? `\n${this.job.toString()}` : ''}`;
     }
 }
 
-module.exports = { Player, JOBS };
+module.exports = { Player };
