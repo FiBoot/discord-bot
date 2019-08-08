@@ -56,7 +56,7 @@ class HeroBook {
     choice(hero, choice) {
         const page = this.pages[hero.page - 1];
         if (choice > page.choices.length) {
-            return `choice #${choice} does not exit`;
+            return `choice #${choice} does not exist`;
         }
         hero.page = page.choices[choice - 1].next;
         return this.status(hero);
