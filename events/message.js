@@ -37,12 +37,12 @@ module.exports = (client, message) => {
     }
 
     // TEXT RPG
-    if ((result = cmd('t[ ]+([a-zA-Z0-9_]+)[ ]*([a-zA-Z0-9_]+)?', message.content))) {
-        if (!textRPG.initialized) {
-            textRPG.initialization(message.author);
-        }
-        return message.reply(textRPG.exec(result[0], message.author, result[1]));
-    }
+    // if ((result = cmd('t[ ]+([a-zA-Z0-9_]+)[ ]*([a-zA-Z0-9_]+)?', message.content))) {
+    //     if (!textRPG.initialized) {
+    //         textRPG.initialization(message.author);
+    //     }
+    //     return message.reply(textRPG.exec(result[0], message.author, result[1]));
+    // }
 
     // HERO BOOK
     if ((result = cmd('book[ ]*([0-9]{1})?', message.content))) {
