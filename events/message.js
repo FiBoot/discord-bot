@@ -50,7 +50,7 @@ module.exports = (client, message) => {
     }
 
     // BIG TEXT
-    if ((result = cmd('big[ ]+([a-zA-Z0-9 ]+)', message.content))) {
+    if ((result = cmd('big[ ]+(.+)', message.content))) {
         const text = bigText(result[0]);
         return text ? message.reply(text) : null;
     }
