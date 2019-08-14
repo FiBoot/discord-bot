@@ -28,7 +28,7 @@ module.exports = (client, message) => {
 
     // GIPHY
     if ((result = cmd('gif (.+)$', message.content))) {
-        return message.reply(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
+        return message.channel.send(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
     }
 
     // KAPU
@@ -52,6 +52,12 @@ module.exports = (client, message) => {
     // BIG TEXT
     if ((result = cmd('big[ ]+(.+)', message.content))) {
         const text = bigText(result[0]);
-        return text ? message.reply(text) : null;
+        return text ? message.channel.send(text) : null;
+    }
+
+    if ((result = cmd('rand', message.content))) {
+        const emojis = message.channel.guild.emojis.map(e => e);
+        const randomEmoji = emojis[Math.trunc(Math.random() * emojis.length)];
+        return randomEmoji ? message.channel.send(`<:${randomEmoji.name}:${randomEmoji.id}>`) : null;
     }
 };
