@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { logger, regexp } = require('../utils');
-const { HeroBook, bigText, random } = require('../src');
+const { HeroBook, bigText, random, nameGenerator } = require('../src');
 const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
 
 const heroBook = new HeroBook();
@@ -45,7 +45,13 @@ module.exports = (client, message) => {
         return message.channel.send(bigText(result[0]));
     }
 
+    // RAND
     if ((result = cmd('rand[ ]*([0-9]+)?', message.content))) {
-        return message.reply(random(message, result[0]))
+        return message.reply(random(message, result[0]));
+    }
+
+    // NAME GENERATOR
+    if ((result = cmd('name', message.content))) {
+        return message.reply(nameGenerator());
     }
 };
