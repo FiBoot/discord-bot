@@ -25,7 +25,7 @@ class HeroBook {
         );
     }
 
-    exec(author, choice) {
+    exec({ author }, choice) {
         if (!this.initialized) {
             return 'HeroBook not initalized';
         }

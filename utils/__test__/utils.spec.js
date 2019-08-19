@@ -1,5 +1,5 @@
 require('colors');
-const { errorCheck, localeDate, logger, regexp } = require('../');
+const { errorCheck, localeDate, logger, random, regexp } = require('../');
 
 describe('utils', () => {
     describe('error-check', () => {
@@ -61,6 +61,16 @@ describe('utils', () => {
         it('should return multiple match', () => {
             const result = regexp('^([abc]+) ([0-9]+) (test)$', 'abcbca 127886 test');
             expect(result).toEqual(['abcbca', '127886', 'test']);
+        });
+    });
+
+    describe('random', () => {
+        it('should genere a random number', () => {
+            for (let i = 0; i < 1000; i++) {
+                const result = random(100);
+                expect(result).toBeLessThan(100);
+                expect(result).toBeGreaterThanOrEqual(0);
+            }
         });
     });
 });
