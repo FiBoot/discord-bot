@@ -3,6 +3,7 @@ require('dotenv').config();
 const { logger, regexp } = require('../utils');
 const { HeroBook, bigText, random, nameGenerator } = require('../src');
 const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
+const MAX_DELETE_MESSAGE = 10;
 
 const heroBook = new HeroBook();
 
@@ -13,17 +14,29 @@ function cmd(expression, message) {
 module.exports = (client, message) => {
     logger.debug(`message from ${message.author.username}: ${message.content}`);
 
+    let result;
+
+    // MENTION
+    if ((result = regexp('<@([0-9]+)>', message.content)) && result[0] === `${client.user.id}`) {
+        return message.channel.send(`Moi aussi je t\'aime <@${message.author.id}> <3`);
+    }
+
     // MESSAGE DONT START WITH BOT PREFIX COMMAND -> EXIT
     if (!cmd('', message.content)) {
         return;
     }
 
-    let result;
-
     // PING
     if (cmd('ping', message.content)) {
         return message.reply('prout');
     }
+    
+    // CLEAN /!\
+    // if ((result = cmd('clean[ ]*([0-9]+)?', message.content))) {
+    //     const number = parseInt(result[0]);
+    //     const option = { limit: number < MAX_DELETE_MESSAGE ? number : MAX_DELETE_MESSAGE };
+    //     return message.channel.fetchMessages(option).then(messages => message.channel.bulkDelete(messages));
+    // }
 
     // GIPHY
     if ((result = cmd('gif (.+)$', message.content))) {

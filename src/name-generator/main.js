@@ -21,7 +21,8 @@ function consonant() {
         'v',
         'w',
         'x',
-        'z'
+        'z',
+        "'"
     ];
     return consonants[random(consonants.length)];
 }
