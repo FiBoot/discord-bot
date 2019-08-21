@@ -24,11 +24,17 @@ class FileBase {
     }
 
     static getDataList() {
+        if (!fs.existsSync(DATA_FOLDER)) {
+            fs.mkdirSync(DATA_FOLDER);
+        }
         return fs.readdirSync(DATA_FOLDER);
     }
 
     static getFileContent(file) {
         const path = `${DATA_FOLDER}/${file}`;
+        if (!fs.existsSync(DATA_FOLDER)) {
+            fs.mkdirSync(DATA_FOLDER);
+        }
         if (!fs.existsSync(path)) {
             fs.openSync(path, 'a');
         }
