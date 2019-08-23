@@ -24,8 +24,8 @@ module.exports = (client, message) => {
         return;
     }
 
-    // TEST
-    if (cmd('t', message)) {
+    // RANDOM FIRESTORE IMAGE
+    if (cmd('img', message)) {
         fetchImage(message);
     }
 

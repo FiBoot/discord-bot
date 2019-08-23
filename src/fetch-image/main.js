@@ -1,9 +1,9 @@
 const fs = require('fs');
-const { errorCheck, random, request } = require('../../utils');
+const { errorCheck, random, request, firebase } = require('../../utils');
 const TMP_FOLDER = '.tmp';
 const TMP_FILE = 'tmp';
 
-function createTMPImage(data, extention = 'png') {
+function createTMPImage(data, extention) {
     if (!fs.existsSync(TMP_FOLDER)) {
         fs.mkdirSync(TMP_FOLDER);
     }
@@ -12,22 +12,55 @@ function createTMPImage(data, extention = 'png') {
     return path;
 }
 
-function cleanTMPImage(extention = 'png') {
+function cleanTMPImage(extention) {
     fs.unlinkSync(`${TMP_FOLDER}/${TMP_FILE}.${extention}`, error => errorCheck(error));
 }
 
-function fetchImage(message) {
-    // TODO connect to firebase en get random image
-    // can be a service on letakol
-    const saddly_hard_coded_images = [
-        'https://firebasestorage.googleapis.com/v0/b/letakol-62166.appspot.com/o/images%2F2c9zsiippz9ib2gpk16z1ehnqqx1?alt=media&token=c8c13b26-d286-4e84-81ea-78fafd622333',
-        'https://firebasestorage.googleapis.com/v0/b/letakol-62166.appspot.com/o/images%2F3yp60d533di9xt1dhgpup2sreue8?alt=media&token=8ff1b9fd-5f67-4488-ad71-cbf1e52b522b'
+function getExtentionFromData(data) {
+    const magicToExtentions = [
+        { magic: ['89', '50', '4e', '47', '0d', '0a', '1a', '0a'], ext: 'png' },
+        { magic: ['ff', 'd8', 'ff', 'db'], ext: 'jpg' },
+        { magic: ['ff', 'd8', 'ff', 'ee'], ext: 'jpeg' },
+        { magic: ['47', '49', '46', '38', '37', '61'], ext: 'gif' },
+        { magic: ['47', '49', '46', '38', '39', '61'], ext: 'gif' }
     ];
-    const randomImage = saddly_hard_coded_images[random(saddly_hard_coded_images.length)];
-    const extention = 'png';
-    request(randomImage, 'binary').then(data =>
-        message.channel.send({ file: createTMPImage(data, extention) }).then(_ => cleanTMPImage(extention))
-    );
+    for (let o = 0; o < magicToExtentions.length; o++) {
+        const { magic, ext } = magicToExtentions[o];
+        let match = true;
+        for (let index = 0; match && index < magic.length; index++) {
+            match = ('00' + data.charCodeAt(index).toString(16)).slice(-2) === magic[index];
+        }
+        if (match) {
+            return ext;
+        }
+    }
+    return null;
+}
+
+function getRandomFirestoreImage() {
+    return firebase
+        .firestore()
+        .collection('images')
+        .get()
+        .then(snapshot => {
+            const images = snapshot.docs.map(doc => doc.data());
+            return images[random(images.length)];
+        })
+        .catch(error => errorCheck(error));
+}
+
+async function fetchImage(message) {
+    const image = await getRandomFirestoreImage();
+    request(image.data.url, 'binary').then(data => {
+        image.extention = getExtentionFromData(data);
+        if (image.extention) {
+            message.channel
+                .send({ file: createTMPImage(data, image.extention) })
+                .then(_ => cleanTMPImage(image.extention));
+        } else {
+            logger.error(`no extention found for image ${image.id}`);
+        }
+    });
 }
 
 module.exports = fetchImage;
