@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { errorCheck, random, request, firebase } = require('../../utils');
+const { logger, errorCheck, random, request, firebase } = require('../../utils');
 const TMP_FOLDER = '.tmp';
 const TMP_FILE = 'tmp';
 
@@ -58,6 +58,7 @@ async function fetchImage(message) {
                 .send({ file: createTMPImage(data, image.extention) })
                 .then(_ => cleanTMPImage(image.extention));
         } else {
+            message.channel.send('failed :(')
             logger.error(`no extention found for image ${image.id}`);
         }
     });
