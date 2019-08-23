@@ -1,7 +1,6 @@
 require('dotenv').config();
-
 const { logger, regexp } = require('../utils');
-const { HeroBook, bigText, random, nameGenerator, FileBase } = require('../src');
+const { HeroBook, bigText, random, nameGenerator, fetchImage } = require('../src');
 const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
 
 const heroBook = new HeroBook();
@@ -25,17 +24,14 @@ module.exports = (client, message) => {
         return;
     }
 
+    // RANDOM FIRESTORE IMAGE
+    if (cmd('img', message)) {
+        fetchImage(message);
+    }
+
     // PING
     if (cmd('ping', message)) {
         return message.reply('prout');
-    }
-
-    // TEST
-    if ((result = cmd('fb[ ]+(list|show|set|unset)[ ]*([a-zA-Z0-9]+)?[ ]*(.+)?', message))) {
-        return message.reply(FileBase.exec(message, result));
-    }
-    if (cmd(`fb[ ]*(.+)?`, message)) {
-        return message.channel.send(FileBase.usage(PREFIX));
     }
 
     // GIPHY
