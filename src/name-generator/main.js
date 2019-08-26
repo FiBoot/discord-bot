@@ -34,7 +34,7 @@ function vowel() {
 
 function syllable() {
     let syllable = '';
-    for (let i = random(3) + 2; i > 0; i--) {
+    for (let i = random(3) + 1; i > 0; i--) {
         syllable += random(2) ? consonant() : vowel();
     }
     return syllable;
@@ -42,7 +42,7 @@ function syllable() {
 
 function nameGenerator() {
     let name = '';
-    for (let i = random(3) + 1; i > 0; i--) {
+    for (let i = random(4) + 1; i > 0; i--) {
         name += syllable();
     }
     return name;
