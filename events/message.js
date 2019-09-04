@@ -19,14 +19,9 @@ module.exports = (client, message) => {
         return message.channel.send(`Moi aussi je t\'aime <@${message.author.id}> <3`);
     }
 
-    // MESSAGE DONT START WITH BOT PREFIX COMMAND -> EXIT
-    if (!cmd('', message)) {
-        return;
-    }
-
     // RANDOM FIRESTORE IMAGE
     if (cmd('img', message)) {
-        fetchImage(message);
+        return fetchImage(message);
     }
 
     // PING
@@ -37,11 +32,6 @@ module.exports = (client, message) => {
     // GIPHY
     if ((result = cmd('gif (.+)$', message))) {
         return message.channel.send(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
-    }
-
-    // KAPU
-    if ((result = cmd('ckikonbez', message))) {
-        return message.reply(`les roux ne sont pas de vrais êtres humains`);
     }
 
     // HERO BOOK
