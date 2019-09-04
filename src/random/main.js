@@ -1,5 +1,5 @@
 const { random } = require('../../utils');
-const DEFAULT_MAX = 20;
+const DEFAULT_MAX = 100;
 
 module.exports = (message, result) => {
     const emojis = message.channel.guild.emojis.map(e => e);
