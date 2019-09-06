@@ -1,9 +1,22 @@
 require('dotenv').config();
 const { logger, regexp } = require('../utils');
-const { HeroBook, bigText, random, nameGenerator, fetchImage } = require('../src');
+const { HeroBook, basic, bigText, random, nameGenerator, fetchImage } = require('../src');
 const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
 
 const heroBook = new HeroBook();
+
+/*
+ * List of programs as:
+ * [expression, callback]
+ */
+const programs = [
+    ['gif (.+)$', basic.giphy],
+    ['big[ ]+(.+)', bigText],
+    ['rand[ ]*([0-9]+)?', random],
+    ['name', nameGenerator],
+    ['img', fetchImage],
+    ['book[ ]*([0-9]{1})?', heroBook.exec.bind(heroBook)]
+];
 
 function cmd(expression, { content }) {
     return regexp(`^\\${PREFIX}${expression}`, content);
@@ -12,45 +25,21 @@ function cmd(expression, { content }) {
 module.exports = (client, message) => {
     logger.debug(`message from ${message.author.username}: ${message.content}`);
 
+    // ANTI-BACKDRAFT
+    if (message.author.id === client.user.id) {
+        return;
+    }
+
+    // PROGRAMS
     let result;
+    programs.forEach(([exp, cb]) => {
+        if ((result = cmd(exp, message))) {
+            return cb(message, result[0]);
+        }
+    });
 
     // MENTION
-    if ((result = regexp('<@([0-9]+)>', message)) && result[0] === `${client.user.id}`) {
-        return message.channel.send(`Moi aussi je t\'aime <@${message.author.id}> <3`);
-    }
-
-    // RANDOM FIRESTORE IMAGE
-    if (cmd('img', message)) {
-        return fetchImage(message);
-    }
-
-    // PING
-    if (cmd('ping', message)) {
-        return message.reply('prout');
-    }
-
-    // GIPHY
-    if ((result = cmd('gif (.+)$', message))) {
-        return message.channel.send(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
-    }
-
-    // HERO BOOK
-    if ((result = cmd('book[ ]*([0-9]{1})?', message))) {
-        return message.reply(heroBook.exec(message, result[0]));
-    }
-
-    // BIG TEXT
-    if ((result = cmd('big[ ]+(.+)', message))) {
-        return message.channel.send(bigText(result[0]));
-    }
-
-    // RAND
-    if ((result = cmd('rand[ ]*([0-9]+)?', message))) {
-        return message.reply(random(message, result[0]));
-    }
-
-    // NAME GENERATOR
-    if ((result = cmd('name', message))) {
-        return message.reply(nameGenerator());
+    if (message.author.id !== client.user.id && regexp('<@([0-9]+)>', message)) {
+        return basic.mention(message);
     }
 };

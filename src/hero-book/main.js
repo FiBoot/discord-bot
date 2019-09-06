@@ -25,16 +25,17 @@ class HeroBook {
         );
     }
 
-    exec({ author }, choice) {
+    exec(message, choice) {
         if (!this.initialized) {
             return 'HeroBook not initalized';
         }
         // RESET
         if (choice === '0') {
-            return this.addHero(author);
+            return message.reply(this.addHero(message.author));
         }
-        const hero = this.getHero(author);
-        return hero ? (choice ? this.choice(hero, choice) : this.status(hero)) : this.addHero(author);
+        const hero = this.getHero(message.author);
+        const ret = hero ? (choice ? this.choice(hero, choice) : this.status(hero)) : this.addHero(message.author);
+        return message.reply(ret);
     }
 
     getHero(author) {

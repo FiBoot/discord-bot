@@ -1,5 +1,17 @@
 const { random } = require('../../utils');
 
+function aName() {
+    const aNames = [
+        'Bilal',
+        'Achmed',
+        'Mohamed',
+        'Khaled',
+        'Abdoul',
+        'Aziz'
+    ];
+    return aNames[random(aName.length)]
+}
+
 function consonant() {
     const consonants = [
         'b',
@@ -34,18 +46,24 @@ function vowel() {
 
 function syllable() {
     let syllable = '';
-    for (let i = random(3) + 1; i > 0; i--) {
+    for (let i = random(3) + 2; i > 0; i--) {
         syllable += random(2) ? consonant() : vowel();
     }
     return syllable;
 }
 
-function nameGenerator() {
+function nameGenerator(message) {
+    // SPECIAL BAMBOUZLING MALA
+    if (message.author.username === 'Mala') {
+        return message.reply(aName());
+    }
+
     let name = '';
-    for (let i = random(4) + 1; i > 0; i--) {
+    for (let i = random(3) + 1; i > 0; i--) {
         name += syllable();
     }
-    return name;
+    name = name.slice(0, 1).toUpperCase() + name.slice(1, name.length);
+    return message.reply(name);
 }
 
 module.exports = nameGenerator;
