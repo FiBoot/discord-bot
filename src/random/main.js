@@ -7,5 +7,5 @@ module.exports = (message, result) => {
     const number = parseInt(result);
     const max = number > 1 ? number : DEFAULT_MAX;
     const rand = random(max) + 1;
-    return `[${rand} / ${max}] ${randomEmoji ? `<:${randomEmoji.name}:${randomEmoji.id}>` : ''}`;
+    return message.reply(`[${rand} / ${max}] ${randomEmoji ? `<:${randomEmoji.name}:${randomEmoji.id}>` : ''}`);
 };

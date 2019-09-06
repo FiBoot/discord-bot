@@ -19,11 +19,6 @@ module.exports = (client, message) => {
         return message.channel.send(`Moi aussi je t\'aime <@${message.author.id}> <3`);
     }
 
-    // RANDOM FIRESTORE IMAGE
-    if (cmd('img', message)) {
-        return fetchImage(message);
-    }
-
     // PING
     if (cmd('ping', message)) {
         return message.reply('prout');
@@ -34,23 +29,28 @@ module.exports = (client, message) => {
         return message.channel.send(`https://giphy.com/explore/${result[0].replace(/ /g, '-')}`);
     }
 
-    // HERO BOOK
-    if ((result = cmd('book[ ]*([0-9]{1})?', message))) {
-        return message.reply(heroBook.exec(message, result[0]));
-    }
-
     // BIG TEXT
     if ((result = cmd('big[ ]+(.+)', message))) {
-        return message.channel.send(bigText(result[0]));
+        return bigText(message, result[0]);
     }
 
     // RAND
     if ((result = cmd('rand[ ]*([0-9]+)?', message))) {
-        return message.reply(random(message, result[0]));
+        return random(message, result[0]);
     }
 
     // NAME GENERATOR
     if ((result = cmd('name', message))) {
-        return message.reply(nameGenerator());
+        return nameGenerator(message);
+    }
+
+    // RANDOM FIRESTORE IMAGE
+    if (cmd('img', message)) {
+        return fetchImage(message);
+    }
+
+    // HERO BOOK
+    if ((result = cmd('book[ ]*([0-9]{1})?', message))) {
+        return heroBook.exec(message, result[0]);
     }
 };
