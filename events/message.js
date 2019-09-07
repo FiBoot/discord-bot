@@ -39,7 +39,7 @@ module.exports = (client, message) => {
     });
 
     // MENTION
-    if (message.author.id !== client.user.id && regexp('<@([0-9]+)>', message)) {
+    if ((result = regexp('<@([0-9]+)>', message)) && result[0] === client.user.id) {
         return basic.mention(message);
     }
 };

@@ -9,7 +9,7 @@ function aName() {
         'Abdoul',
         'Aziz'
     ];
-    return aNames[random(aName.length)]
+    return aNames[random(aNames.length)]
 }
 
 function consonant() {
