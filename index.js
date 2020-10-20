@@ -19,7 +19,8 @@ fs.readdir('./events/', (error, files) =>
 );
 
 // START
-logger.info('starting discord client..');
+const PREFIX = process.env.PREFIX ? process.env.PREFIX : '/';
+logger.info(`starting discord client with prefix: ${PREFIX}`);
 client
     .login(process.env.BOT_TOKEN)
     .catch(e => errorCheck(e));
