@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { logger, regexp } = require('../utils');
-const { HeroBook, basic, bigText, random, nameGenerator, fetchImage, noice } = require('../src');
-const PREFIX = process.env.PREFIX ? process.env.PREFIX : '>';
+const { HeroBook, basic, images, bigText, random, nameGenerator, fetchImage } = require('../src');
+const PREFIX = process.env.PREFIX ? process.env.PREFIX : '/';
 
 const heroBook = new HeroBook();
 
@@ -11,7 +11,8 @@ const heroBook = new HeroBook();
  */
 const programs = [
     ['gif (.+)$', basic.giphy],
-    ['noice', noice],
+    ['noice', images.noice],
+    ['fgm', images.fgm],
     ['big[ ]+(.+)', bigText],
     ['rand[ ]*([0-9]+)?', random],
     ['name', nameGenerator],
