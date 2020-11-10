@@ -53,8 +53,8 @@ function syllable() {
 }
 
 function nameGenerator(message) {
-    // SPECIAL BAMBOUZLING MALA
-    if (message.author.username === 'Mala') {
+    // SPECIAL BAMBOUZLING MALA mais pas trop en fait
+    if (message.author.username === 'Mala' && !random(5)) {
         return message.reply(aName());
     }
 
