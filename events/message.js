@@ -13,6 +13,7 @@ const programs = [
     ['gif (.+)$', basic.giphy],
     ['noice', images.noice],
     ['fgm', images.fgm],
+    ['right', images.right],
     ['big[ ]+(.+)', bigText],
     ['rand[ ]*([0-9]+)?', random],
     ['name', nameGenerator],
