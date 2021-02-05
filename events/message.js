@@ -10,6 +10,7 @@ const heroBook = new HeroBook();
  * [expression, callback]
  */
 const programs = [
+    ['help', basic.help],
     ['gif (.+)$', basic.giphy],
     ['noice', images.noice],
     ['fgm', images.fgm],
