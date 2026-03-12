@@ -1,10 +1,10 @@
 const { random } = require('../../utils');
 const DEFAULT_MAX = 100;
 
-module.exports = (message, result) => {
+module.exports = (message, max) => {
     const emojis = message.channel.guild.emojis.map(e => e);
     const randomEmoji = emojis[random(emojis.length)];
-    const number = parseInt(result);
+    const number = parseInt(max);
     const max = number > 1 ? number : DEFAULT_MAX;
     const rand = random(max) + 1;
     return message.reply(`[${rand} / ${max}] ${randomEmoji ? `<:${randomEmoji.name}:${randomEmoji.id}>` : ''}`);
