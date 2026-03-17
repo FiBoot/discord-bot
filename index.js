@@ -1,26 +1,18 @@
-require('dotenv').config();
+const process = require("node:process");
+const { botToken } = require("./config.json");
+const { onMessage: handleMessage, onReady: handleReady, onExit: handleExit } = require("./src/events");
+const { errorCheck } = require("./src/utils");
+const { Client, Events } = require("discord.js");
 
-const fs = require('fs');
-const Discord = require('discord.js');
-const { logger, errorCheck } = require('./utils');
+//  CLIENT
+const client = new Client({
+  intents: ["Guilds", "GuildMessages", "MessageContent"],
+});
 
-// CREATE CLIENT
-const client = new Discord.Client();
-
-// BIND EVENTS
-fs.readdir('./events/', (error, files) =>
-    errorCheck(error, files).then(files => {
-        files.forEach(file => {
-            const eventHandler = require(`./events/${file}`);
-            const eventName = file.split('.')[0];
-            client.on(eventName, arg => eventHandler(client, arg));
-        });
-    })
-);
+// EVENTS
+process.on("SIGINT", () => handleExit(process, client));
+client.on(Events.ClientReady, handleReady);
+client.on(Events.MessageCreate, handleMessage);
 
 // START
-const PREFIX = process.env.PREFIX ? process.env.PREFIX : '/';
-logger.info(`starting discord client with prefix: ${PREFIX}`);
-client
-    .login(process.env.BOT_TOKEN)
-    .catch(e => errorCheck(e));
+client.login(botToken).catch((e) => errorCheck(e));
