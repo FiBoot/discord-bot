@@ -1,6 +1,6 @@
 const process = require("node:process");
 const { botToken } = require("./config.json");
-const { onMessage: handleMessage, onReady: handleReady, onExit: handleExit } = require("./src/events");
+const { onMessage, onReady, onExit } = require("./src/events");
 const { errorCheck } = require("./src/utils");
 const { Client, Events } = require("discord.js");
 
@@ -10,9 +10,9 @@ const client = new Client({
 });
 
 // EVENTS
-process.on("SIGINT", () => handleExit(process, client));
-client.on(Events.ClientReady, handleReady);
-client.on(Events.MessageCreate, handleMessage);
+process.on("SIGINT", () => onExit(process, client));
+client.on(Events.ClientReady, onReady);
+client.on(Events.MessageCreate, onMessage);
 
 // START
 client.login(botToken).catch((e) => errorCheck(e));
