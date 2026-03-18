@@ -1,5 +1,5 @@
 const { random } = require("../../utils");
-const { EJobType, jobs } = require("./ff-jobs");
+const { jobs } = require("./ff-jobs");
 
 const TYPPING_TIMEOUT = 1000;
 const jobCategories = ["t", "h", "m", "r", "c"];
@@ -32,4 +32,12 @@ function ffRandomJob(message, category) {
   return message.channel.sendTyping();
 }
 
-module.exports = ffRandomJob;
+module.exports = {
+  data: {
+    name: "ffRandomJob",
+    exp: "job[ ]?([thmrc])?",
+    usage: "job [THMRC]",
+    description: "Job FFXIV aléatoire (Tank, Heal, Melee, Range, Caster)",
+  },
+  execute: ffRandomJob,
+};

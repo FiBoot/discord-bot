@@ -1,14 +1,7 @@
 # DISCROD BOT
 
 ## env
-
-You have to set up a ```.env``` file at the root of the project
-
-|Name     |Effect                                |Mandatory|
-|:-       |:-                                    |:-:      |
-|BOT_TOKEN|discord bot login key                 |YES      |
-|PREFIX   |prefix of bot command (default is `/`)|NO       |
-|DEBUG    |to show debug logs                    |NO       |
+config:  ```.config.json``` 
 
 ## Git convention
 

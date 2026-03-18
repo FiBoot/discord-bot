@@ -9,10 +9,10 @@ const client = new Client({
   intents: ["Guilds", "GuildMessages", "MessageContent"],
 });
 
-// EVENTS
+// // EVENTS
 process.on("SIGINT", () => onExit(process, client));
 client.on(Events.ClientReady, onReady);
 client.on(Events.MessageCreate, onMessage);
 
-// START
+// // START
 client.login(botToken).catch((e) => errorCheck(e));

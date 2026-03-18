@@ -1,6 +1,6 @@
 const alphabet = require("./alphabet");
 
-module.exports = (message, text) => {
+function bigText(message, text) {
   const letters = text
     .toLowerCase()
     .split("")
@@ -11,4 +11,15 @@ module.exports = (message, text) => {
     )
     .join("");
   return message.channel.send(big);
+};
+
+
+module.exports = {
+  data: {
+    name: "bigText",
+    exp: "big ([ a-z0-9\!\?]+)?",
+    usage: "big [text]",
+    description: "Text en GRAND",
+  },
+  execute: bigText,
 };

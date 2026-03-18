@@ -1,32 +1,28 @@
 const { prefix } = require("../../config.json");
 const { logger, regexp, errorCheck } = require("../utils");
-const { commands } = require("../commands/commands");
+const { commandFactory } = require("../services");
 
-function parse(expression, { content }) {
-  return regexp(`^\\${prefix}${expression}`, content);
+const commands = commandFactory.create();
+
+function parse(exp, { content }) {
+  return regexp(`^\\${prefix}${exp}`, content);
 }
 
-module.exports = (message) => {
-  logger.debug(`New message from ${message.author.username}: ${message.content}`);
-
+function onMessage(message) {
   // ANTI-BACKDRAFT (cancel self message)
   if (message.author.bot) return;
 
-  // COMMANDS
   let result;
-  try {
-    commands.forEach(({ exp, name, cb }) => {
-      if ((result = parse(exp, message))) {
-        logger.debug(`Command found: ${name}`);
-        return cb(message, result[0]);
+  for (command of commands) {
+    if ((result = parse(command.data.exp, message))) {
+      logger.debug(`Command found: ${command.data.name}`);
+      try {
+        return command.execute(message, result[0]);
+      } catch (e) {
+        errorCheck(e);
       }
-    });
-  } catch (e) {
-    errorCheck(e);
+    }
   }
+}
 
-  // MENTION
-  // if ((result = regexp("<@([0-9]+)>", message)) && result[0] === client.user.id) {
-  //   return basic.mention(message);
-  // }
-};
+module.exports = onMessage;

@@ -1,11 +1,24 @@
-const cmds = [
-  '> /help\t\t\t\t\t\tListe des commandes',
-  '> /rand [nombre]\t\tGénère un nombre aléatoire',
-  '> /big [text]\t\t\t\tTexte en GRAND',
-  '> /name\t\t\t\t\t\tGénèrateur de noms *(en test)*',
-  '> /job [THMRC]\t\t\tJob FFXIV aléatoire (Tank, Heal, Melee, Range, Caster)',
-];
+const { commandFactory } = require("../../services");
+const { prefix } = require("../../../config.json");
 
-module.exports = (message) => {
+const MAX_GAP_LENGTH = 25;
+const MIN_GAP_LENGTH = 4;
+
+function help(message) {
+  const loadedCommandsData = commandFactory.getData();
+  const cmds = loadedCommandsData.map((data) => {
+    const gap = MAX_GAP_LENGTH - data.usage.length;
+    return `>${prefix}${data.usage}${" ".repeat(gap > 0 ? gap : MIN_GAP_LENGTH)}${data.description}`;
+  });
   message.reply(cmds.join("\n"));
+}
+
+module.exports = {
+  data: {
+    name: "help",
+    exp: "help",
+    usage: "help",
+    description: "List des commandes",
+  },
+  execute: help,
 };
