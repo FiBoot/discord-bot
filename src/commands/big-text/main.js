@@ -18,7 +18,7 @@ module.exports = {
   data: {
     name: "bigText",
     exp: "big ([ a-z0-9\!\?]+)?",
-    usage: "big [text]",
+    usage: "big _[text]_",
     description: "Text en GRAND",
   },
   execute: bigText,

@@ -17,7 +17,7 @@ const MESSAGE_TYPES = {
  */
 function log(type, message) {
   const datetime = localeDate(new Date());
-  return `[${datetime.grey}][${type}]: ${message}`;
+  return console.log(`[${datetime.grey}][${type}]: ${message}`);
 }
 
 module.exports = {

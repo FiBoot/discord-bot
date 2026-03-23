@@ -1,5 +1,5 @@
 const process = require("node:process");
-const { botToken } = require("./config.json");
+const { token } = require("./config.json");
 const { onMessage, onReady, onExit } = require("./src/events");
 const { errorCheck } = require("./src/utils");
 const { Client, Events } = require("discord.js");
@@ -15,4 +15,4 @@ client.on(Events.ClientReady, onReady);
 client.on(Events.MessageCreate, onMessage);
 
 // // START
-client.login(botToken).catch((e) => errorCheck(e));
+client.login(token).catch((e) => errorCheck(e));

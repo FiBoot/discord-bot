@@ -12,7 +12,7 @@ module.exports = {
   data: {
     name: "rand",
     exp: "rand[ ]?(\d+)?",
-    usage: "rand [nombre]",
+    usage: "rand _[nombre]_",
     description: "dès",
   },
   execute: rand,

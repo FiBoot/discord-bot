@@ -1,7 +1,7 @@
 const { random } = require("../../utils");
 const { jobs } = require("./ff-jobs");
 
-const TYPPING_TIMEOUT = 1000;
+const TYPPING_TIMEOUT = 500;
 const jobCategories = ["t", "h", "m", "r", "c"];
 const jobColors = [0x183db8, 0x32a852, 0xc41108, 0xc7551c, 0xbd1ca2];
 
@@ -36,7 +36,7 @@ module.exports = {
   data: {
     name: "ffRandomJob",
     exp: "job[ ]?([thmrc])?",
-    usage: "job [THMRC]",
+    usage: "job _[thmrc]_",
     description: "Job FFXIV aléatoire (Tank, Heal, Melee, Range, Caster)",
   },
   execute: ffRandomJob,
