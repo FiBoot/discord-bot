@@ -1,8 +1,8 @@
 const process = require("node:process");
+const { Client, Events } = require("discord.js");
 const { token } = require("./config.json");
 const { onMessage, onReady, onExit } = require("./src/events");
 const { errorCheck } = require("./src/utils");
-const { Client, Events } = require("discord.js");
 
 //  CLIENT
 const client = new Client({
