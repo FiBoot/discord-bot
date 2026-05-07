@@ -1,11 +1,11 @@
-const alphabet = require("./alphabet");
+const bigAlphabet = require("./alphabet");
 
 function bigText(message, text) {
   const letters = text
     .toLowerCase()
     .split("")
-    .map((char) => (alphabet.hasOwnProperty(char) ? alphabet[char] : []));
-  const big = alphabet[" "]
+    .map((char) => (bigAlphabet.hasOwnProperty(char) ? bigAlphabet[char] : []));
+  const big = bigAlphabet[" "]
     .map(
       (_, index) => "\n" + letters.map((letter) => (letter[index] ? letter[index] : null)).join(""),
     )
@@ -17,7 +17,7 @@ function bigText(message, text) {
 module.exports = {
   data: {
     name: "bigText",
-    exp: "big ([ a-z0-9\!\?]+)?",
+    exp: "big ([ a-zA-Z0-9\!\?]+)?",
     usage: "big _[text]_",
     description: "Text en GRAND",
   },
