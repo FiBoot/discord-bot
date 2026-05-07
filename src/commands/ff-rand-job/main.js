@@ -1,7 +1,7 @@
 const { random, logger } = require("../../utils");
 const { jobs } = require("./ff-jobs");
 
-const TYPPING_TIMEOUT = 500;
+const TYPPING_TIMEOUT = 200;
 const jobCategories = ["t", "h", "m", "r", "c"];
 const jobColors = [0x183db8, 0x32a852, 0xc41108, 0xc7551c, 0xbd1ca2];
 

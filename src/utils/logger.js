@@ -1,6 +1,6 @@
 require("colors");
 const { debug } = require("../../config.json");
-const { localeDate } = require("../utils");
+const localeDate = require("./locale-date");
 
 const MESSAGE_TYPES = {
   ERROR: "ERROR".red,
