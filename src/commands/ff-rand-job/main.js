@@ -1,4 +1,4 @@
-const { random, logger } = require("../../utils");
+const { random, logger, fileHelper } = require("../../utils");
 const { jobs } = require("./ff-jobs");
 
 const TYPPING_TIMEOUT = 200;
@@ -16,8 +16,23 @@ function findJob(category) {
   return jobs[random(jobs.length)];
 }
 
+function checkSavedFile({ author }) {
+  const filePath = `src/files/ff-jobs/${author.id}.data`;
+  const fileData = fileHelper.readFile(filePath);
+  return fileData;
+}
+
+function findJobFromList(jobStr) {
+  const jobList = jobStr.split("|");
+  const jobAbbrev = jobList[random(jobList.length)];
+  const selectedJob = jobs.find((job) => job.abbrev === jobAbbrev);
+  return selectedJob;
+}
+
 function ffRandomJob(message, category) {
-  const selectedJob = findJob(category);
+  const fileData = checkSavedFile(message);
+  const selectedJob = fileData ? findJobFromList(fileData) : findJob(category);
+
   const embed = {
     color: jobColors[selectedJob.type],
     // author: {
@@ -28,7 +43,7 @@ function ffRandomJob(message, category) {
     // description: selectedJob.name,
     thumbnail: { url: selectedJob.iconUrl },
   };
-  logger.debug(selectedJob.name)
+  logger.debug(selectedJob.name);
   setTimeout(() => message.channel.send({ embeds: [embed] }), TYPPING_TIMEOUT);
   // setTimeout(() => message.channel.send("ça suffit maintenant!"), TYPPING_TIMEOUT);
   return message.channel.sendTyping();

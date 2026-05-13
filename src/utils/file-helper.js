@@ -15,13 +15,12 @@ class FileHelper {
   }
 
   static writeFile(filePath, data) {
-    if (!fs.existsSync(filePath)) {
-      console.log('file no exist no shit')
-    }
     try {
       fs.writeFileSync(filePath, data, this.encoding);
+      return data;
     } catch (err) {
       logger.error(err);
+      return null;
     }
   }
 }

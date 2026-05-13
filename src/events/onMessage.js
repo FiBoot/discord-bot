@@ -5,7 +5,7 @@ const { commandFactory } = require("../services");
 const commands = commandFactory.create();
 
 function parse(exp, { content }) {
-  return regexp(`^\\${prefix}${exp}`, content);
+  return regexp(`^\\${prefix}${exp}$`, content);
 }
 
 function onMessage(message) {

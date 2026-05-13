@@ -1,11 +1,16 @@
 const { fileHelper } = require("../../utils");
 const { jobs } = require("../ff-rand-job/ff-jobs");
 
-function setFFJobs(inputJobs) {
-  const jobAbbrPiped = jobs.map((job) => job.abbr).join("|");
-  const jobsRegexp = new RegExp(jobAbbrPiped, "g");
-  const selectedJobs = inputJobs.match(jobsRegexp).join("|");
-  fileHelper.writeFile("src/files/ff-jobs/user-id.data", selectedJobs);
+function setFFJobs(message, chosedJobs) {
+  const jobAbbrevPiped = jobs.map((job) => job.abbrev).join("|");
+  const jobsRegexp = new RegExp(jobAbbrevPiped, "g");
+
+  const selectedJobs = (chosedJobs.match(jobsRegexp) ?? []).join("|");
+
+  const filePath = `src/files/ff-jobs/${message.author.id}.data`;
+  const fileData = fileHelper.writeFile(filePath, selectedJobs);
+
+  return message.reply(`${fileData.replaceAll("|", " ")} **enregistré**`);
 }
 
 module.exports = {
