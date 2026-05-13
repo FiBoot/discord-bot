@@ -1,13 +1,11 @@
-const { random, regexp } = require("../../utils");
+const { fileHelper } = require("../../utils");
 const { jobs } = require("../ff-rand-job/ff-jobs");
 
-const DEFAULT_MAX = 100;
-
-function set(jobs) {
-  const jobAbbrPiped = jobs.map((job) => job.abbr).join('|');
-  console.log(jobAbbrPiped)
-  const job = regexp()
-  return message.reply(`[${rand} / ${max}]`);
+function setFFJobs(inputJobs) {
+  const jobAbbrPiped = jobs.map((job) => job.abbr).join("|");
+  const jobsRegexp = new RegExp(jobAbbrPiped, "g");
+  const selectedJobs = inputJobs.match(jobsRegexp).join("|");
+  fileHelper.writeFile("src/files/ff-jobs/user-id.data", selectedJobs);
 }
 
 module.exports = {
@@ -17,5 +15,5 @@ module.exports = {
     usage: "set jobs _[données]_",
     description: "enregistre les jobs ff",
   },
-  execute: set,
+  execute: setFFJobs,
 };
